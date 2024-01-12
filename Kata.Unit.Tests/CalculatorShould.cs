@@ -2,19 +2,27 @@ namespace Kata.Unit.Tests;
 
 public class CalculatorShould
 {
-    #region Add
-
-    [Fact]
-    public void Add_two_numbers()
+    
+    public static IEnumerable<object[]> insertedAndRejectedCoins()
     {
-        // Arrange
-        var calculator = new Calculator();
-        // Act
-        var result = calculator.Add(1, 2);
-        // Assert
-        result.Should().Be(3);
+        yield return new object[] { new List<Coin> { Coin.Nickel, Coin.Dime }, new List<Coin> {} };
+        yield return new object[] { new List<Coin> { Coin.Penny }, new List<Coin> { Coin.Penny } };
+        yield return new object[] { new List<Coin> { Coin.Penny, Coin.Nickel, Coin.Dime, Coin.Penny}, new List<Coin> { Coin.Penny, Coin.Penny } };
+
+    }
+
+    [Theory]
+    [MemberData(nameof(insertedAndRejectedCoins))]
+    public void rejected_coins_are_placed_into_coin_return(List<Coin> insertedCoins, List<Coin> rejectedCoins)
+    {
+        var vendingMachine = new VendingMachine();
+        
+        vendingMachine.insert(insertedCoins);
+
+        vendingMachine.coinReturn().Should().BeEquivalentTo(rejectedCoins);
     }
     
+/*
     [Theory]
     [InlineData(1, 2, 3)]
     [InlineData(2, 3, 5)]
@@ -28,21 +36,5 @@ public class CalculatorShould
         // Assert
         result.Should().Be(expected);
     }
-
-    #endregion
-    
-    #region Subtract
-    
-    [Fact]
-    public void Subtract_two_numbers()
-    {
-        // Arrange
-        var calculator = new Calculator();
-        // Act
-        var result = calculator.Subtract(1, 2);
-        // Assert
-        result.Should().Be(-1);
-    }
-    
-    #endregion
+    */
 }
