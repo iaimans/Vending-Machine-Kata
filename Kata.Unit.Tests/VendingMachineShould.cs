@@ -24,19 +24,4 @@ public class VendingMachineShould
         vendingMachine.coinReturn().Should().BeEquivalentTo(rejectedCoins);
     }
     
-/*
-    [Theory]
-    [InlineData(1, 2, 3)]
-    [InlineData(2, 3, 5)]
-    [InlineData(3, 4, 7)]
-    public void Add_two_numbers_theory(int a, int b, int expected)
-    {
-        // Arrange
-        var calculator = new Calculator();
-        // Act
-        var result = calculator.Add(a, b);
-        // Assert
-        result.Should().Be(expected);
-    }
-    */
 }
