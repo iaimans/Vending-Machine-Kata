@@ -1,4 +1,3 @@
-using FluentAssertions;
 using NUnit.Framework;
 
 namespace Kata.Unit.Tests;
@@ -21,7 +20,7 @@ public class VendingMachineShould
         
         vendingMachine.insert(insertedCoins);
 
-        vendingMachine.coinReturn().Should().BeEquivalentTo(rejectedCoins);
+        Assert.That(vendingMachine.coinReturn(), Is.EqualTo(rejectedCoins));
     }
     
 }
